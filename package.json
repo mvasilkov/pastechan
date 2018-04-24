@@ -1,0 +1,15 @@
+{
+  "name": "longpaste",
+  "version": "0.0.0",
+  "description": "The opposite of a shortcut.",
+  "main": "app.js",
+  "repository": "git@github.com:mvasilkov/longpaste.git",
+  "author": "mvasilkov",
+  "license": "MIT",
+  "dependencies": {
+    "bson": "^2.0.5",
+    "express": "^4.16.3",
+    "level-packager": "^2.1.1",
+    "leveldown": "^3.0.0"
+  }
+}
