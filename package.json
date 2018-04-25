@@ -6,6 +6,10 @@
   "repository": "git@github.com:mvasilkov/longpaste.git",
   "author": "mvasilkov",
   "license": "MIT",
+  "scripts": {
+    "dev": "node app.js",
+    "css": "node-sass -r stylesheets -o static && cleancss -o static/master.min.css static/master.css"
+  },
   "dependencies": {
     "bson": "^2.0.5",
     "encoding-down": "^4.0.0",
@@ -15,5 +19,10 @@
     "morgan": "^1.9.0",
     "nunjucks": "^3.1.2",
     "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^4.1.10",
+    "node-sass": "^4.7.2",
+    "systematize": "^3.0.0"
   }
 }

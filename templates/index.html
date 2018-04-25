@@ -3,11 +3,9 @@
 {% block title %}I specifically requested the opposite of this{% endblock %}
 
 {% block content %}
-    <form action="/p" method="post">
+    <form action="/p" method="post" class="editor-form">
         <p>
-            <textarea name="contents" cols="80" rows="20"></textarea>
-        </p>
-        <p>
+            <textarea name="contents" cols="80" rows="20" class="editor"></textarea><br>
             <input type="submit">
         </p>
     </form>

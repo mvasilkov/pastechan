@@ -11,11 +11,13 @@ const app = express()
 const db = levelup(`${__dirname}/LevelDB`)
 
 nunjucks.configure(`${__dirname}/templates`, {
+    autoescape: false,
     express: app,
 })
 
 app.use(logger('short'))
 app.use(favicon(`${__dirname}/static/favicon.ico`))
+app.use('/static', express.static(`${__dirname}/static`, { index: false }))
 
 app.get('/', (req, res) => {
     res.render('index.html')
@@ -32,7 +34,7 @@ app.get('/p/:id', (req, res) => {
             nope.pageNotFound(res)
             return
         }
-        res.send(post)
+        res.render('page.html', { contents: post })
     })
 })
 
