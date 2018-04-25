@@ -8,8 +8,9 @@
   "license": "MIT",
   "dependencies": {
     "bson": "^2.0.5",
+    "encoding-down": "^4.0.0",
     "express": "^4.16.3",
-    "level-packager": "^2.1.1",
-    "leveldown": "^3.0.0"
+    "leveldown": "^3.0.0",
+    "levelup": "^2.0.2"
   }
 }

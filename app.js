@@ -1,9 +1,9 @@
 const { ObjectId } = require('bson')
 const express = require('express')
-const level = require('./level')
+const levelup = require('./levelup')
 
 const app = express()
-const db = level(`${__dirname}/LevelDB`)
+const db = levelup(`${__dirname}/LevelDB`)
 
 app.get('/', (req, res) => {
     res.send('I specifically requested the opposite of this')
