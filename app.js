@@ -2,6 +2,7 @@ const { ObjectId } = require('bson')
 const express = require('express')
 const favicon = require('serve-favicon')
 const logger = require('morgan')
+const nunjucks = require('nunjucks')
 
 const levelup = require('./levelup')
 const nope = require('./nope')
@@ -9,11 +10,15 @@ const nope = require('./nope')
 const app = express()
 const db = levelup(`${__dirname}/LevelDB`)
 
+nunjucks.configure(`${__dirname}/templates`, {
+    express: app,
+})
+
 app.use(logger('short'))
 app.use(favicon(`${__dirname}/static/favicon.ico`))
 
 app.get('/', (req, res) => {
-    res.send('I specifically requested the opposite of this')
+    res.render('index.html')
 })
 
 app.get('/p/:id', (req, res) => {

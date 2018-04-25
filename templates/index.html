@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}I specifically requested the opposite of this{% endblock %}
+
+{% block content %}
+    <form action="/p" method="post">
+        <p>
+            <textarea name="contents" cols="80" rows="20"></textarea>
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+{% endblock %}
