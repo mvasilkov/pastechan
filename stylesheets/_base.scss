@@ -26,6 +26,8 @@ header p, footer p {
 }
 
 textarea {
+    background-color: $color-background;
+    color: inherit;
     font-family: inherit;
     font-size: 100%;
     line-height: 1.58;

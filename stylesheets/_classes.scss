@@ -10,6 +10,10 @@
     width: 100%;
 }
 
-.editor input[type='submit'] {
-    margin-top: 21px;
+.editor .btn {
+    bottom: 40px;
+    position: absolute;
+    right: 40px;
+    transform: scale(0.75);
+    transform-origin: bottom right;
 }
