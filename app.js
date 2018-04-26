@@ -7,15 +7,18 @@ const nunjucks = require('nunjucks')
 const levelup = require('./levelup')
 const nope = require('./nope')
 
+const is_dev = ['development', undefined].includes(process.env.NODE_ENV)
+
 const app = express()
 const db = levelup(`${__dirname}/LevelDB`)
 
 nunjucks.configure(`${__dirname}/templates`, {
     autoescape: false,
     express: app,
+    watch: is_dev,
 })
 
-app.use(logger('short'))
+app.use(logger(is_dev ? 'dev' : 'short'))
 app.use(favicon(`${__dirname}/static/favicon.ico`))
 app.use('/static', express.static(`${__dirname}/static`, { index: false }))
 

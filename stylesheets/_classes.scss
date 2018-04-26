@@ -1,8 +1,8 @@
-.editor-form {
+.editor form {
     text-align: right;
 }
 
-.editor {
+.editor textarea {
     box-sizing: border-box;
     font-size: 18px;
     min-height: 10em;
@@ -10,6 +10,6 @@
     width: 100%;
 }
 
-.editor-form input[type='submit'] {
+.editor input[type='submit'] {
     margin-top: 21px;
 }

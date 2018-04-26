@@ -18,7 +18,8 @@
     "levelup": "^2.0.2",
     "morgan": "^1.9.0",
     "nunjucks": "^3.1.2",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "statuses": "^1.5.0"
   },
   "devDependencies": {
     "clean-css-cli": "^4.1.10",

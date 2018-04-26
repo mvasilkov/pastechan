@@ -6,7 +6,7 @@
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="/static/master.min.css">
     </head>
-    <body>
+    <body class="{% block class %}{% endblock %}">
         <div class="container">
             <article>{% block content %}{% endblock %}</article>
         </div>

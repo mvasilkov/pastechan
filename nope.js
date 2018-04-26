@@ -1,16 +1,14 @@
+const statuses = require('statuses')
+
+const nopeFun = n => function (res) {
+    res.status(n).render('nope.html', { message: `${n} ${statuses[n]}` })
+}
+
 const nope = {
-    badPageId(res) {
-        res.sendStatus(404)
-    },
-    pageNotFound(res) {
-        res.sendStatus(404)
-    },
-    badPageContents(res) {
-        res.sendStatus(400)
-    },
-    cannotSavePage(res) {
-        res.sendStatus(503)
-    },
+    badPageId: nopeFun(404),
+    pageNotFound: nopeFun(404),
+    badPageContents: nopeFun(400),
+    cannotSavePage: nopeFun(503),
 }
 
 module.exports = nope
