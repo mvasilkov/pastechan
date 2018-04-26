@@ -8,7 +8,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "node app.js",
-    "css": "node-sass -r stylesheets -o static && cleancss -o static/master.min.css static/master.css"
+    "css": "node-sass -r stylesheets -o static && cleancss -o static/master.min.css static/master.css",
+    "watch_css": "nodemon -w stylesheets -e scss -x \"yarn css\"",
+    "watch": "concurrently \"yarn watch_css\" \"yarn dev\""
   },
   "dependencies": {
     "bson": "^2.0.5",
@@ -23,7 +25,9 @@
   },
   "devDependencies": {
     "clean-css-cli": "^4.1.10",
+    "concurrently": "^3.5.1",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.17.3",
     "systematize": "^3.0.0"
   }
 }

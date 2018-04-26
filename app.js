@@ -60,6 +60,11 @@ app.post('/p', (req, res) => {
     })
 })
 
-app.listen(3000, 'localhost', () => {
-    console.log('Longpaste app listening on port 3000')
+app.use((req, res, next) => {
+    nope.pageNotFound(res)
+})
+
+const server = app.listen(process.env.PORT || 3000, 'localhost', () => {
+    const a = server.address()
+    console.log(`Longpaste app listening on ${a.address} port ${a.port}`)
 })

@@ -25,10 +25,14 @@ header p, footer p {
     font-style: italic;
 }
 
-textarea {
-    background-color: $color-background;
-    color: inherit;
+button, textarea {
     font-family: inherit;
     font-size: 100%;
     line-height: 1.58;
+}
+
+textarea {
+    background-color: $color-background;
+    color: inherit;
+    resize: none;
 }

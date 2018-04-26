@@ -33,11 +33,23 @@ $btn-height: 100px;
     z-index: -1;
 }
 
+// Microsoft Edge
+@supports (-ms-ime-align: auto) {
+    .btn::after {
+        display: none;
+    }
+}
+
+.btn:focus {
+    outline: 0;
+    text-decoration: underline;
+    text-underline-position: under;
+}
+
 button.btn {
     -moz-appearance: none;
     -webkit-appearance: none;
     border: 0;
-    display: block;
     padding: 0;
 }
 
