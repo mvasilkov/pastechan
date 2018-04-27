@@ -4,6 +4,7 @@ const favicon = require('serve-favicon')
 const logger = require('morgan')
 const nunjucks = require('nunjucks')
 
+const gracefulShutdown = require('./stop')
 const levelup = require('./levelup')
 const nope = require('./nope')
 
@@ -67,4 +68,5 @@ app.use((req, res, next) => {
 const server = app.listen(process.env.PORT || 3000, 'localhost', () => {
     const a = server.address()
     console.log(`Longpaste app listening on ${a.address} port ${a.port}`)
+    gracefulShutdown(server, db)
 })
