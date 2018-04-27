@@ -1,9 +1,12 @@
+const stoppable = require('stoppable')
+
+const grace = 960
 const termSignals = ['SIGINT', 'SIGTERM', 'SIGHUP', 'SIGUSR2']
 
 function doShutdown(server, db) {
     let errorCode = 0
 
-    server.close(err => {
+    server.stop(err => {
         if (err) console.error(err)
 
         db.close(err => {
@@ -27,6 +30,8 @@ function gracefulShutdown(server, db) {
         console.log(`Got ${name}. Powering down`)
         doShutdown(server, db)
     }
+
+    stoppable(server, grace)
 
     termSignals.forEach(name => process.once(name, handler))
 }

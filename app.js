@@ -66,7 +66,8 @@ app.use((req, res, next) => {
 })
 
 const server = app.listen(process.env.PORT || 3000, 'localhost', () => {
+    gracefulShutdown(server, db)
+
     const a = server.address()
     console.log(`Longpaste app listening on ${a.address} port ${a.port}`)
-    gracefulShutdown(server, db)
 })
