@@ -1,7 +1,15 @@
 const statuses = require('statuses')
 
 const nopeFun = n => function (res) {
-    res.status(n).render('nope.html', { message: `${n} ${statuses[n]}` })
+    const options = { message: `${n} ${statuses[n]}` }
+    res.status(n).format({
+        ['text/html']() {
+            res.render('nope.html', options)
+        },
+        ['application/json']() {
+            res.json(options)
+        },
+    })
 }
 
 const nope = {

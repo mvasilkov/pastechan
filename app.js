@@ -39,7 +39,15 @@ app.get('/p/:id', (req, res) => {
             nope.pageNotFound(res)
             return
         }
-        res.render('page.html', { contents: post.contents_html })
+        const options = { contents: post.contents_html }
+        res.format({
+            ['text/html']() {
+                res.render('page.html', options)
+            },
+            ['application/json']() {
+                res.json(options)
+            },
+        })
     })
 })
 
