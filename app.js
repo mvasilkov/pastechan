@@ -1,4 +1,5 @@
 const { ObjectId } = require('bson')
+const cmark = require('cmark-emscripten')
 const express = require('express')
 const favicon = require('serve-favicon')
 const logger = require('morgan')
@@ -11,7 +12,7 @@ const nope = require('./nope')
 const is_dev = ['development', undefined].includes(process.env.NODE_ENV)
 
 const app = express()
-const db = levelup(`${__dirname}/LevelDB`)
+const db = levelup(`${__dirname}/LevelDB`, { valueEncoding: 'json' })
 
 nunjucks.configure(`${__dirname}/templates`, {
     autoescape: false,
@@ -38,7 +39,7 @@ app.get('/p/:id', (req, res) => {
             nope.pageNotFound(res)
             return
         }
-        res.render('page.html', { contents: post })
+        res.render('page.html', { contents: post.contents_html })
     })
 })
 
@@ -51,8 +52,12 @@ app.post('/p', (req, res) => {
         nope.badPageContents(res)
         return
     }
+    const post = {
+        contents,
+        contents_html: cmark.markdownToHtml(contents, { hardbreaks: true, safe: true, validateUTF8: true }),
+    }
     const objectid = ObjectId()
-    db.put(objectid.toString(), contents, err => {
+    db.put(objectid.toString(), post, err => {
         if (err) {
             nope.cannotSavePage(res)
             return

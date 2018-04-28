@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "bson": "^2.0.5",
+    "cmark-emscripten": "^0.0.0",
     "encoding-down": "^4.0.0",
     "express": "^4.16.3",
     "leveldown": "^3.0.0",
