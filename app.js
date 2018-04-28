@@ -78,9 +78,21 @@ app.use((req, res, next) => {
     nope.pageNotFound(res)
 })
 
-const server = app.listen(process.env.PORT || 3000, 'localhost', () => {
-    gracefulShutdown(server, db)
+function run() {
+    const server = app.listen(process.env.PORT || 3000, 'localhost', () => {
+        gracefulShutdown(server, db)
 
-    const a = server.address()
-    console.log(`Longpaste app listening on ${a.address} port ${a.port}`)
-})
+        const a = server.address()
+        console.log(`Longpaste app listening on ${a.address} port ${a.port}`)
+    })
+}
+
+// if __name__ == __main__
+if (require.main === module) {
+    run()
+}
+
+module.exports = {
+    app,
+    run,
+}
