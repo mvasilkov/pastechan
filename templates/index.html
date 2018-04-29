@@ -7,6 +7,7 @@
 {% block content %}
     <form action="/p" method="post">
         <div class="wrapper">
+            <input type="hidden" name="token" value="{{ token }}">
             <textarea name="contents" cols="80" rows="20" autofocus></textarea>
             <button class="btn">Save</button>
         </div>
