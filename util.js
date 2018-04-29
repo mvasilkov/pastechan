@@ -12,6 +12,16 @@ function makeSecret(next) {
     })
 }
 
+function badPageId(a) {
+    return typeof a != 'string' || a.length != 24 // ObjectId
+}
+
+function badPageSecret(a) {
+    return typeof a != 'string' || a.length != 64 // SHA-256
+}
+
 module.exports = {
     makeSecret,
+    badPageId,
+    badPageSecret,
 }

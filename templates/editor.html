@@ -8,7 +8,10 @@
     <form action="/p" method="post">
         <div class="wrapper">
             <input type="hidden" name="token" value="{{ token }}">
-            <textarea name="contents" cols="80" rows="20" autofocus></textarea>
+            {% if secret %}
+                <input type="hidden" name="secret" value="{{ secret }}">
+            {% endif %}
+            <textarea name="contents" cols="80" rows="20" autofocus>{{ contents }}</textarea>
             <button class="btn">Save</button>
         </div>
     </form>

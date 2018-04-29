@@ -10,7 +10,7 @@ const nunjucks = require('nunjucks')
 const gracefulShutdown = require('./stop')
 const levelup = require('./levelup')
 const nope = require('./nope')
-const { makeSecret } = require('./util')
+const { makeSecret, badPageId, badPageSecret } = require('./util')
 
 const dev = ['development', undefined].includes(process.env.NODE_ENV)
 const secret = 'potato'
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
     const options = { token }
     res.format({
         ['text/html']() {
-            res.render('index.html', options)
+            res.render('editor.html', options)
         },
         ['application/json']() {
             res.json(options)
@@ -42,11 +42,11 @@ app.get('/', (req, res) => {
     })
 })
 
-app.use(cookieParser(secret))
+app.use(cookieParser(`${secret}cookie`))
 
 app.get('/p/:id', (req, res) => {
     const { id } = req.params
-    if (!id || id.length != 24) {
+    if (badPageId(id)) {
         nope.badPageId(res)
         return
     }
@@ -82,11 +82,39 @@ function cookieSalt(req) {
     }
 }
 
+app.get('/p/:id/:secret', (req, res) => {
+    const { id, secret: pSecret } = req.params
+    if (badPageId(id) || badPageSecret(pSecret)) {
+        nope.badPageId(res)
+        return
+    }
+    db.get(id, (err, post) => {
+        if (err) {
+            nope.pageNotFound(res)
+            return
+        }
+        if (pSecret != post.secret) {
+            nope.badPageId(res)
+            return
+        }
+        const token = jwt.sign({ salt: id, n: 3 }, secret, { expiresIn: '2 days' })
+        const options = { token, contents: post.contents, secret: pSecret }
+        res.format({
+            ['text/html']() {
+                res.render('editor.html', options)
+            },
+            ['application/json']() {
+                res.json(options)
+            },
+        })
+    })
+})
+
 app.use(express.json({ strict: true }))
 app.use(express.urlencoded({ extended: false }))
 
 app.post('/p', (req, res) => {
-    const { contents, token } = req.body
+    const { contents, token, secret: pSecret } = req.body
     if (!contents) {
         nope.badPageContents(res)
         return
@@ -113,6 +141,10 @@ app.post('/p', (req, res) => {
             return
         }
         /* Page found */
+        if (pSecret == post.secret) {
+            updatePost(res, post, contents, decoded)
+            return
+        }
         nope.badPageContents(res)
     })
 })
@@ -136,6 +168,18 @@ function savePost(res, contents, { salt }) {
             }
             res.redirect(`/p/${salt}`)
         })
+    })
+}
+
+function updatePost(res, post, contents, { salt }) {
+    post.contents = contents
+    post.contents_html = cmark.markdownToHtml(contents, { hardbreaks: true, safe: true, validateUTF8: true })
+    db.put(salt, post, err => {
+        if (err) {
+            nope.cannotSavePage(res)
+            return
+        }
+        res.redirect(`/p/${salt}`)
     })
 }
 
