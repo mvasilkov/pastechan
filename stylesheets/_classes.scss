@@ -1,3 +1,5 @@
+@import 'colors';
+
 .editor .wrapper {
     align-items: center;
     box-sizing: border-box;
@@ -26,4 +28,26 @@
     right: 40px;
     transform: scale(0.75);
     transform-origin: bottom right;
+}
+
+.page.show-warning article {
+    margin-top: 64px;
+}
+
+@media all and (max-width: 767px) {
+    .page.show-warning article {
+        margin-top: 60px;
+    }
+}
+
+.page.show-warning .warning {
+    background-image: linear-gradient($color-warning-1, $color-warning-2);
+    border-bottom: 1px solid $color-warning-border;
+    left: 0;
+    overflow: hidden;
+    padding: 15px 0;
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    width: 100vw;
 }

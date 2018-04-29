@@ -1,5 +1,6 @@
 const { ObjectId } = require('bson')
 const cmark = require('cmark-emscripten')
+const cookieParser = require('cookie-parser')
 const express = require('express')
 const favicon = require('serve-favicon')
 const jwt = require('jsonwebtoken')
@@ -9,6 +10,7 @@ const nunjucks = require('nunjucks')
 const gracefulShutdown = require('./stop')
 const levelup = require('./levelup')
 const nope = require('./nope')
+const { makeSecret } = require('./util')
 
 const dev = ['development', undefined].includes(process.env.NODE_ENV)
 const secret = 'potato'
@@ -40,6 +42,8 @@ app.get('/', (req, res) => {
     })
 })
 
+app.use(cookieParser(secret))
+
 app.get('/p/:id', (req, res) => {
     const { id } = req.params
     if (!id || id.length != 24) {
@@ -52,6 +56,9 @@ app.get('/p/:id', (req, res) => {
             return
         }
         const options = { contents: post.contents_html }
+        if (cookieSalt(req) == id) {
+            options.change = `/p/${id}/${post.secret}`
+        }
         res.format({
             ['text/html']() {
                 res.render('page.html', options)
@@ -62,6 +69,18 @@ app.get('/p/:id', (req, res) => {
         })
     })
 })
+
+function cookieSalt(req) {
+    const { change } = req.cookies
+    if (change) {
+        try {
+            const decoded = jwt.verify(change, secret, { algorithms: ['HS256'] })
+            return decoded.salt
+        }
+        catch (err) {
+        }
+    }
+}
 
 app.use(express.json({ strict: true }))
 app.use(express.urlencoded({ extended: false }))
@@ -98,17 +117,25 @@ app.post('/p', (req, res) => {
     })
 })
 
-function savePost(res, contents, decoded) {
+function savePost(res, contents, { salt }) {
     const post = {
         contents,
         contents_html: cmark.markdownToHtml(contents, { hardbreaks: true, safe: true, validateUTF8: true }),
     }
-    db.put(decoded.salt, post, err => {
-        if (err) {
-            nope.cannotSavePage(res)
-            return
+    makeSecret(pSecret => {
+        if (pSecret) {
+            post.secret = pSecret
+            /* Set cookie for editing */
+            const token = jwt.sign({ salt }, secret, { expiresIn: '256 seconds' })
+            res.cookie('change', token, { httpOnly: true, secure: dev == false })
         }
-        res.redirect(`/p/${decoded.salt}`)
+        db.put(salt, post, err => {
+            if (err) {
+                nope.cannotSavePage(res)
+                return
+            }
+            res.redirect(`/p/${salt}`)
+        })
     })
 }
 

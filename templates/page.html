@@ -2,8 +2,15 @@
 
 {% block title %}I specifically requested the opposite of this{% endblock %}
 
-{% block class %}page{% endblock %}
+{% block class %}page {% if change %}show-warning{% endif %}{% endblock %}
 
 {% block content %}
+    {% if change %}
+        <div class="warning">
+            <div class="container">
+                Save the link to <a href="{{ change }}">edit this page</a>
+            </div>
+        </div>
+    {% endif %}
     {{ contents }}
 {% endblock %}
