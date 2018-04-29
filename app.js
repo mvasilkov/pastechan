@@ -172,6 +172,10 @@ function savePost(res, contents, { salt }) {
 }
 
 function updatePost(res, post, contents, { salt }) {
+    if (contents == post.contents) {
+        res.redirect(`/p/${salt}`)
+        return
+    }
     post.contents = contents
     post.contents_html = cmark.markdownToHtml(contents, { hardbreaks: true, safe: true, validateUTF8: true })
     db.put(salt, post, err => {
