@@ -11,7 +11,7 @@ const gracefulShutdown = require('./stop')
 const levelup = require('./levelup')
 const nope = require('./nope')
 const proof = require('./proof')
-const { makePageSecret, badPageId, badPageSecret } = require('./functions')
+const { makePageSecret, badPageId, badPageSecret, cleanupCRLF } = require('./functions')
 
 const dev = ['development', undefined].includes(process.env.NODE_ENV)
 const appSecret = 'potato'
@@ -115,11 +115,14 @@ app.use(express.json({ strict: true }))
 app.use(express.urlencoded({ extended: false }))
 
 app.post('/p', (req, res) => {
-    const { contents, token, nonce, secret: pageSecret } = req.body
+    const { token, nonce, secret: pageSecret } = req.body
+
+    let { contents } = req.body
     if (!contents) {
         nope.badPageContents(res)
         return
     }
+    contents = cleanupCRLF(contents)
 
     let pageId, n
     try {
