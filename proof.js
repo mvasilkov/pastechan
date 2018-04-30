@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 
-const { badPageId } = require('./functions')
+const { badPageId, cleanupCRLF } = require('./functions')
 
 const lowestDifficulty = 9
 
@@ -8,7 +8,8 @@ const difficulty = () => lowestDifficulty
 
 function validate(nonce, salt, n, contents) {
     nonce = +nonce
-    if (badNonce(nonce) || badPageId(salt) || badN(n) || badContents(contents)) return false
+    if (badNonce(nonce) || badPageId(salt) || badN(n)) return false
+    contents = cleanupCRLF(contents)
 
     const bufNonce = Buffer.allocUnsafe(4)
     bufNonce.writeUInt32BE(nonce, 0)
@@ -43,10 +44,6 @@ function badNonce(nonce) {
 
 function badN(n) {
     return !Number.isInteger(n) || n < lowestDifficulty
-}
-
-function badContents(contents) {
-    return typeof contents != 'string'
 }
 
 module.exports = {

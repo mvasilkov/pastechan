@@ -17,7 +17,7 @@
         const decoded = jwt_decode(token.value)
 
         // nonce : salt : n : contents
-        const buf = stringToUTF8(['oooo', decoded.salt, 'o', contents.value].join(':'))
+        const buf = stringToUTF8(['oooo', decoded.salt, 'o', cleanupCRLF(contents.value)].join(':'))
         const pbuf = new DataView(buf.buffer)
 
         pbuf.setUint8(decoded.salt.length + 6, decoded.n)
@@ -49,4 +49,8 @@
             })
         }
     })
+
+    function cleanupCRLF(a) {
+        return a.replace(/\r\n/g, '\n')
+    }
 })()

@@ -20,8 +20,13 @@ function badPageSecret(a) {
     return typeof a != 'string' || a.length != 64 // SHA-256
 }
 
+function cleanupCRLF(a) {
+    return a.replace(/\r\n/g, '\n')
+}
+
 module.exports = {
     makePageSecret,
     badPageId,
     badPageSecret,
+    cleanupCRLF,
 }
