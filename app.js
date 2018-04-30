@@ -10,6 +10,7 @@ const nunjucks = require('nunjucks')
 const gracefulShutdown = require('./stop')
 const levelup = require('./levelup')
 const nope = require('./nope')
+const proof = require('./proof')
 const { makePageSecret, badPageId, badPageSecret } = require('./functions')
 
 const dev = ['development', undefined].includes(process.env.NODE_ENV)
@@ -30,7 +31,7 @@ app.use('/static', express.static(`${__dirname}/static`, { index: false }))
 
 app.get('/', (req, res) => {
     const pageId = (new ObjectId).toString()
-    const token = jwt.sign({ salt: pageId, n: 3 }, appSecret, { expiresIn: '2 days' })
+    const token = jwt.sign({ salt: pageId, n: proof.difficulty() }, appSecret, { expiresIn: '2 days' })
     const options = { token }
     res.format({
         ['text/html']() {
@@ -97,7 +98,7 @@ app.get('/p/:pageId/:pageSecret', (req, res) => {
             nope.cannotChangePage(res)
             return
         }
-        const token = jwt.sign({ salt: pageId, n: 3 }, appSecret, { expiresIn: '2 days' })
+        const token = jwt.sign({ salt: pageId, n: proof.difficulty() }, appSecret, { expiresIn: '2 days' })
         const options = { token, contents: post.contents, secret: pageSecret }
         res.format({
             ['text/html']() {
@@ -114,16 +115,17 @@ app.use(express.json({ strict: true }))
 app.use(express.urlencoded({ extended: false }))
 
 app.post('/p', (req, res) => {
-    const { contents, token, secret: pageSecret } = req.body
+    const { contents, token, nonce, secret: pageSecret } = req.body
     if (!contents) {
         nope.badPageContents(res)
         return
     }
 
-    let pageId
+    let pageId, n
     try {
         const decoded = jwt.verify(token, appSecret, { algorithms: ['HS256'] })
         pageId = decoded.salt
+        n = decoded.n
     }
     catch (err) {
         nope.badPageContents(res)
@@ -131,6 +133,11 @@ app.post('/p', (req, res) => {
     }
 
     if (badPageId(pageId)) {
+        nope.badPageContents(res)
+        return
+    }
+
+    if (!proof.validate(nonce, pageId, n, contents)) {
         nope.badPageContents(res)
         return
     }

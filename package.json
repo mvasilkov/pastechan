@@ -20,7 +20,6 @@
     "watch": "concurrently \"yarn watch_css\" \"yarn dev\""
   },
   "dependencies": {
-    "base62": "^2.0.0",
     "bson": "^2.0.5",
     "cmark-emscripten": "^0.0.0",
     "cookie-parser": "^1.4.3",

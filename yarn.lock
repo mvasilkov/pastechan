@@ -179,10 +179,6 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
-base62@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/base62/-/base62-2.0.0.tgz#62292693fb0418824caaae6dc19d01fe8bdd9691"
-
 base64url@2.0.0, base64url@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/base64url/-/base64url-2.0.0.tgz#eac16e03ea1438eff9423d69baa36262ed1f70bb"
@@ -3051,8 +3047,8 @@ systematize@^3.0.0:
   resolved "https://registry.yarnpkg.com/systematize/-/systematize-3.0.1.tgz#75307e2981c4ca849a25002b3952051087ff3a85"
 
 tar-fs@^1.13.0:
-  version "1.16.1"
-  resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-1.16.1.tgz#a8382bf5d5263d50c4902732b5ebfb31007fa819"
+  version "1.16.2"
+  resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-1.16.2.tgz#17e5239747e399f7e77344f5f53365f04af53577"
   dependencies:
     chownr "^1.0.1"
     mkdirp "^0.5.1"

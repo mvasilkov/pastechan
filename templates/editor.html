@@ -8,6 +8,7 @@
     <form action="/p" method="post">
         <div class="wrapper">
             <input type="hidden" name="token" value="{{ token }}">
+            <input type="hidden" name="nonce">
             {% if secret %}
                 <input type="hidden" name="secret" value="{{ secret }}">
             {% endif %}
@@ -18,6 +19,7 @@
 {% endblock %}
 
 {% block script %}
+    <script src="/static/vendor/jwt-decode.min.js"></script>
     <script src="/static/utf8.js"></script>
     <script src="/static/editor.js"></script>
 {% endblock %}
