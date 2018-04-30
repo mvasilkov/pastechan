@@ -12,11 +12,10 @@ const nopeFun = n => function (res) {
     })
 }
 
-const nope = {
-    badPageId: nopeFun(404),
-    pageNotFound: nopeFun(404),
+module.exports = {
+    badPageId: nopeFun(404), // Client has sent bad pageId or pageSecret
+    pageNotFound: nopeFun(404), // No such page in the database
     badPageContents: nopeFun(400),
+    cannotChangePage: nopeFun(403),
     cannotSavePage: nopeFun(503),
 }
-
-module.exports = nope

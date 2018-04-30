@@ -1,9 +1,9 @@
 (function () {
-    const form = document.getElementsByTagName('form')[0]
-    const textarea = document.getElementsByTagName('textarea')[0]
+    const form = document.querySelector('form')
+    const contents = document.querySelector('textarea')
 
     form.addEventListener('submit', function (event) {
-        if (textarea.value.trim() == '') {
+        if (contents.value.trim() == '') {
             event.preventDefault()
         }
     })

@@ -1,6 +1,6 @@
 const crypto = require('crypto')
 
-function makeSecret(next) {
+function makePageSecret(next) {
     crypto.randomBytes(64, (err, buf) => {
         if (err) {
             next(null)
@@ -21,7 +21,7 @@ function badPageSecret(a) {
 }
 
 module.exports = {
-    makeSecret,
+    makePageSecret,
     badPageId,
     badPageSecret,
 }

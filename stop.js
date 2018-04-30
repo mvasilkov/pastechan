@@ -1,16 +1,17 @@
+const ms = require('ms')
 const stoppable = require('stoppable')
 
-const grace = 960
+const grace = ms('.9 seconds')
 const termSignals = ['SIGINT', 'SIGTERM', 'SIGHUP', 'SIGUSR2']
 
 function doShutdown(server, db) {
     let errorCode = 0
 
     server.stop(err => {
-        if (err) console.error(err)
+        if (err) ++errorCode, console.error(err)
 
         db.close(err => {
-            if (err) console.error(err)
+            if (err) ++errorCode, console.error(err)
 
             console.log('Goodbye')
             process.exit(errorCode)
