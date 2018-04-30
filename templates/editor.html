@@ -12,11 +12,12 @@
                 <input type="hidden" name="secret" value="{{ secret }}">
             {% endif %}
             <textarea name="contents" cols="80" rows="20" autofocus>{{ contents }}</textarea>
-            <button class="btn">Save</button>
+            <button type="button" class="btn btn-save">Save</button>
         </div>
     </form>
 {% endblock %}
 
 {% block script %}
+    <script src="/static/utf8.js"></script>
     <script src="/static/editor.js"></script>
 {% endblock %}
