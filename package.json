@@ -40,9 +40,9 @@
     "concurrently": "^3.5.1",
     "google-closure-compiler": "^20180402.0.0",
     "jwt-decode": "^2.2.0",
-    "node-replace": "^0.3.3",
     "node-sass": "^4.7.2",
     "nodemon": "^1.17.3",
+    "replace-in-file": "^3.4.0",
     "systematize": "^3.0.0"
   }
 }
