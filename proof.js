@@ -6,6 +6,8 @@ const lowestDifficulty = 9
 
 const difficulty = () => lowestDifficulty
 
+const bufSep = Buffer.from('\t', 'ascii')
+
 function validate(nonce, salt, n, contents) {
     nonce = +nonce
     if (badNonce(nonce) || badPageId(salt) || badN(n)) return false
@@ -13,14 +15,19 @@ function validate(nonce, salt, n, contents) {
     const bufNonce = Buffer.allocUnsafe(4)
     bufNonce.writeUInt32BE(nonce, 0)
 
+    const bufSalt = Buffer.from(salt, 'hex')
+
     const bufN = Buffer.allocUnsafe(1)
     bufN.writeUInt8(n, 0)
 
     let sha256sum = crypto.createHash('sha256')
     sha256sum.update(bufNonce)
-    sha256sum.update(`:${salt}:`)
+    sha256sum.update(bufSep)
+    sha256sum.update(bufSalt)
+    sha256sum.update(bufSep)
     sha256sum.update(bufN)
-    sha256sum.update(`:${contents}`)
+    sha256sum.update(bufSep)
+    sha256sum.update(contents, 'utf8')
     sha256sum = sha256sum.digest()
 
     let k = 0

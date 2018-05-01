@@ -1,4 +1,4 @@
-const { ObjectId } = require('bson')
+const ObjectId = require('bson/lib/bson/objectid')
 const cmark = require('cmark-emscripten')
 const cookieParser = require('cookie-parser')
 const express = require('express')
