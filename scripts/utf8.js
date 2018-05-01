@@ -1,4 +1,5 @@
 /* The following is based on Emscripten's UTF-8 functions */
+'use strict'
 
 // Returns the number of bytes the given JavaScript string takes if encoded as a UTF8 byte array.
 function lengthBytesUTF8(a) {
