@@ -40,7 +40,7 @@
     }
 }
 
-.page.show-warning .warning {
+.warning {
     background-image: linear-gradient($color-warning-1, $color-warning-2);
     border-bottom: 1px solid $color-warning-border;
     left: 0;
@@ -50,4 +50,15 @@
     top: 0;
     white-space: nowrap;
     width: 100vw;
+}
+
+.warning-close {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+}
+
+// Same as h1-6:first-child
+.warning + h1, .warning + h2, .warning + h3, .warning + h4, .warning + h5, .warning + h6 {
+    margin-top: 0;
 }
