@@ -12,13 +12,8 @@ body {
     color: $color-copy;
 }
 
-p, pre, ul {
+p, pre, ol, ul {
     @include font-subpixel-off;
-}
-
-pre {
-    font-size: 17px;
-    letter-spacing: 0;
 }
 
 header p, footer p {
