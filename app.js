@@ -17,7 +17,7 @@ const dev = ['development', undefined].includes(process.env.NODE_ENV)
 const appSecret = 'potato'
 
 const app = express()
-const db = levelup(`${__dirname}/LevelDB`, { valueEncoding: 'json' })
+const db = levelup(`${__dirname}/LevelDB`, { keyEncoding: 'hex', valueEncoding: 'json' })
 
 nunjucks.configure(`${__dirname}/templates`, {
     autoescape: false,

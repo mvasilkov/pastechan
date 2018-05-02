@@ -45,7 +45,7 @@ p, pre, ol, ul {
     margin: 0 0 29px;
 }
 
-pre {
+code, pre {
     font-size: 17px;
     letter-spacing: 0;
 }
@@ -58,6 +58,11 @@ ol, ul {
 li {
     margin-left: 30px;
     margin-bottom: 14px;
+}
+
+li ol, li ul {
+    margin-bottom: 0;
+    margin-top: 14px;
 }
 
 li::before {
@@ -120,7 +125,7 @@ ul > li::before {
         margin-bottom: 21px;
     }
 
-    pre {
+    code, pre {
         font-size: 15px;
     }
 
