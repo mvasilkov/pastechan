@@ -31,3 +31,17 @@ textarea {
     color: inherit;
     resize: none;
 }
+
+code {
+    background-color: $color-light-grey-1;
+    border: 1px solid $color-light-grey-2;
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+}
+
+pre code {
+    background-color: $color-background;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+}
