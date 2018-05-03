@@ -40,16 +40,21 @@
     }
 }
 
+.page.show-warning .warning {
+    display: block;
+}
+
 .warning {
     background-image: linear-gradient($color-warning-1, $color-warning-2);
     border-bottom: 1px solid $color-warning-border;
+    display: none;
     left: 0;
     overflow: hidden;
     padding: 15px 0;
     position: absolute;
     top: 0;
     white-space: nowrap;
-    width: 100vw;
+    width: 100%;
 }
 
 .warning-close {

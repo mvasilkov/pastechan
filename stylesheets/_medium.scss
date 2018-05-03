@@ -46,8 +46,12 @@ h4, h5, h6 {
     letter-spacing: -0.016em;
 }
 
-h1:first-child, h2:first-child, h3:first-child,
-h4:first-child, h5:first-child, h6:first-child {
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
     margin-top: 0;
 }
 
@@ -62,6 +66,10 @@ blockquote {
 code, pre {
     font-size: 17px;
     letter-spacing: 0;
+}
+
+pre {
+    margin-top: 4px;
 }
 
 ol, ul {
@@ -102,6 +110,10 @@ ul > li::before {
     font-size: 16.8px;
     padding-right: 15px;
     padding-top: 4px;
+}
+
+hr {
+    margin: 29px 0;
 }
 
 @media all and (max-width: 767px) {
@@ -151,7 +163,15 @@ ul > li::before {
         font-size: 15px;
     }
 
+    pre {
+        margin-top: 3px;
+    }
+
     ul > li::before {
         font-size: 14.4px;
+    }
+
+    hr {
+        margin: 21px 0;
     }
 }
