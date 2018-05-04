@@ -19,6 +19,7 @@ const contents = document.querySelector('textarea')
 const tokenInput = document.querySelector('[name="token"]')
 const nonceInput = document.querySelector('[name="nonce"]')
 const save = document.querySelector('.btn-save')
+const modalOverlay = document.querySelector('.modal-overlay')
 
 form.addEventListener('submit', function (event) {
     event.preventDefault()
@@ -39,6 +40,7 @@ save.addEventListener('click', function (event) {
     pbuf.setUint8(OFFSET_N, decoded.n)
 
     let nonce = 0
+    disableUI()
     compute()
 
     function compute() {
@@ -62,6 +64,7 @@ save.addEventListener('click', function (event) {
 
         if (k >= decoded.n) {
             nonceInput.value = nonce
+            enableUI()
             form.submit()
             return
         }
@@ -72,4 +75,15 @@ save.addEventListener('click', function (event) {
 
 function cleanupCRLF(a) {
     return a.replace(/\r\n/g, '\n')
+}
+
+function disableUI() {
+    // modalOverlay.style.display = ''
+    contents.disabled = save.disabled = true
+}
+
+function enableUI() {
+    modalOverlay.style.display = 'none'
+    contents.disabled = save.disabled = false
+    // contents.focus()
 }

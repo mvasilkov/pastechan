@@ -47,7 +47,7 @@
 .warning {
     background-image: linear-gradient($color-warning-1, $color-warning-2);
     border-bottom: 1px solid $color-warning-border;
-    display: none;
+    display: none; // use .show-warning to override
     left: 0;
     overflow: hidden;
     padding: 15px 0;
@@ -66,4 +66,20 @@
 // Same as h1-6:first-child
 .warning + h1, .warning + h2, .warning + h3, .warning + h4, .warning + h5, .warning + h6 {
     margin-top: 0;
+}
+
+.modal-overlay {
+    align-items: center;
+    background: $color-modal-background;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.modal-overlay h1 {
+    color: $color-modal-copy;
 }
