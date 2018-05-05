@@ -1942,6 +1942,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
+frameguard@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/frameguard/-/frameguard-3.0.0.tgz#7bcad469ee7b96e91d12ceb3959c78235a9272e9"
+
 fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
@@ -2544,6 +2548,10 @@ jws@^3.1.4:
     jwa "^1.1.4"
     safe-buffer "^5.0.1"
 
+jwt-decode@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
+
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -2676,14 +2684,15 @@ longest@^1.0.1:
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
 longpaste@latest:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/longpaste/-/longpaste-0.0.1.tgz#c8b963ff0c4c232e2fdfdae440dc5f9d970d8182"
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/longpaste/-/longpaste-0.0.2.tgz#4229fefa79422fa98a6909f13086419702c9b969"
   dependencies:
     bson "^2.0.5"
     cmark-emscripten "^0.0.0"
     cookie-parser "^1.4.3"
     encoding-down "^4.0.0"
     express "^4.16.3"
+    frameguard "^3.0.0"
     jsonwebtoken "^8.2.1"
     leveldown "^3.0.0"
     levelup "^2.0.2"

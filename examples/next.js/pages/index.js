@@ -1,8 +1,10 @@
 import React from 'react'
 import 'isomorphic-fetch'
 
+import { solve } from '../proof-of-work'
+
 const defaults = {
-    headers: { accept: 'application/json' },
+    headers: { accept: 'application/json', 'content-type': 'application/json' },
 }
 
 export default class extends React.Component {
@@ -27,12 +29,19 @@ export default class extends React.Component {
     }
 
     async submit(event) {
-        const { host } = this.props
+        const { host, token } = this.props
+        const contents = '# hello, world'
 
-        // Solve the challenge
-
-        let res = await fetch(`${host}/longpaste/p`, { method: 'post', ...defaults })
-        res = await res.json()
-        console.log(res)
+        solve(token, contents, async nonce => {
+            const body = JSON.stringify({
+                token,
+                contents,
+                nonce,
+            })
+            let res = await fetch(`${host}/longpaste/p`, { method: 'post', body, ...defaults })
+            console.log(res)
+            res = await res.json()
+            console.log(res)
+        })
     }
 }

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
+    "jwt-decode": "^2.2.0",
     "longpaste": "latest",
     "next": "^6.0.0",
     "react": "^16.3.2",
