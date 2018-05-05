@@ -1,0 +1,19 @@
+{
+  "name": "longpaste-next",
+  "version": "0.0.0",
+  "description": "Longpaste Next.js integration",
+  "main": "app.js",
+  "repository": "git@github.com:mvasilkov/longpaste.git",
+  "author": "Mark Vasilkov",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node app.js"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "longpaste": "latest",
+    "next": "^6.0.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  }
+}

@@ -1,5 +1,6 @@
-/node_modules/
+node_modules/
 yarn-error.log
 /LevelDB/
 longpaste.iml
 static/master.css
+.next/

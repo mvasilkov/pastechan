@@ -208,7 +208,7 @@ app.use((req, res, next) => {
     nope.pageNotFound(res)
 })
 
-function run() {
+function run(app) {
     const server = app.listen(process.env.PORT || 3000, 'localhost', () => {
         gracefulShutdown(server, db)
 
@@ -219,7 +219,7 @@ function run() {
 
 // if __name__ == __main__
 if (require.main === module) {
-    run()
+    run(app)
 }
 
 module.exports = {
