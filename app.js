@@ -3,6 +3,7 @@ const cmark = require('cmark-emscripten')
 const cookieParser = require('cookie-parser')
 const express = require('express')
 const favicon = require('serve-favicon')
+const frameguard = require('frameguard')
 const jwt = require('jsonwebtoken')
 const logger = require('morgan')
 const nunjucks = require('nunjucks')
@@ -19,12 +20,19 @@ const appSecret = 'potato'
 const app = express()
 const db = levelup(`${__dirname}/LevelDB`, { keyEncoding: 'hex', valueEncoding: 'json' })
 
+app.enable('case sensitive routing')
+app.disable('x-powered-by')
+// Application-specific settings
+app.set('app name', 'pastechan.org')
+app.set('default title', 'pastechan.org, an anonymous quasi-blogging platform')
+
 nunjucks.configure(`${__dirname}/templates`, {
     autoescape: false,
     express: app,
     watch: dev,
 })
 
+app.use(frameguard())
 app.use(logger(dev ? 'dev' : 'short'))
 app.use(favicon(`${__dirname}/static/favicon.ico`))
 app.use('/static', express.static(`${__dirname}/static`, { index: false }))
@@ -35,6 +43,7 @@ app.get('/', (req, res) => {
     const options = { token }
     res.format({
         ['text/html']() {
+            options.title = app.get('default title')
             res.render('editor.html', options)
         },
         ['application/json']() {
@@ -62,6 +71,7 @@ app.get('/p/:pageId', (req, res) => {
         }
         res.format({
             ['text/html']() {
+                options.title = app.get('default title')
                 res.render('page.html', options)
             },
             ['application/json']() {
@@ -102,6 +112,7 @@ app.get('/p/:pageId/:pageSecret', (req, res) => {
         const options = { token, contents: post.contents, secret: pageSecret }
         res.format({
             ['text/html']() {
+                options.title = app.get('default title')
                 res.render('editor.html', options)
             },
             ['application/json']() {
@@ -213,7 +224,8 @@ function run(app) {
         gracefulShutdown(server, db)
 
         const a = server.address()
-        console.log(`Longpaste app listening on ${a.address} port ${a.port}`)
+        const appName = app.get('app name') || 'Longpaste'
+        console.log(`${appName} app listening on ${a.address} port ${a.port}`)
     })
 }
 
