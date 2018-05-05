@@ -1,6 +1,7 @@
 const ObjectId = require('bson/lib/bson/objectid')
 const cmark = require('cmark-emscripten')
 const cookieParser = require('cookie-parser')
+const format = require('date-fns/format')
 const express = require('express')
 const favicon = require('serve-favicon')
 const frameguard = require('frameguard')
@@ -22,14 +23,19 @@ const db = levelup(`${__dirname}/LevelDB`, { keyEncoding: 'hex', valueEncoding: 
 
 app.enable('case sensitive routing')
 app.disable('x-powered-by')
+app.set('trust proxy', 'loopback')
 // Application-specific settings
 app.set('app name', 'pastechan.org')
 app.set('default title', 'pastechan.org, an anonymous quasi-blogging platform')
 
-nunjucks.configure(`${__dirname}/templates`, {
+const nenv = nunjucks.configure(`${__dirname}/templates`, {
     autoescape: false,
     express: app,
     watch: dev,
+})
+
+nenv.addFilter('pubdate', function pubdate(a) {
+    return format(a)
 })
 
 app.use(frameguard())
@@ -65,7 +71,7 @@ app.get('/p/:pageId', (req, res) => {
             nope.pageNotFound(res)
             return
         }
-        const options = { contents: post.contents_html }
+        const options = { contents: post.contents_html, created: post.created, updated: post.updated }
         if (cookieSalt(req) == pageId) {
             options.change = `/p/${pageId}/${post.secret}`
         }
@@ -177,9 +183,12 @@ app.post('/p', (req, res) => {
 })
 
 function savePost(res, pageId, contents) {
+    const created = Date.now()
     const post = {
         contents,
         contents_html: cmark.markdownToHtml(contents, { hardbreaks: true, safe: true, validateUTF8: true }),
+        created,
+        updated: created,
     }
     makePageSecret(pageSecret => {
         if (pageSecret) {
@@ -206,6 +215,7 @@ function updatePost(res, post, pageId, contents) {
     }
     post.contents = contents
     post.contents_html = cmark.markdownToHtml(contents, { hardbreaks: true, safe: true, validateUTF8: true })
+    post.updated = Date.now()
     db.put(pageId, post, err => {
         if (err) {
             nope.cannotSavePage(res)
