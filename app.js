@@ -1,3 +1,4 @@
+const assert = require('assert')
 const ObjectId = require('bson/lib/bson/objectid')
 const cmark = require('cmark-emscripten')
 const cookieParser = require('cookie-parser')
@@ -12,11 +13,13 @@ const nunjucks = require('nunjucks')
 const gracefulShutdown = require('./stop')
 const levelup = require('./levelup')
 const nope = require('./nope')
-const proof = require('./proof')
+const pow = require('./pow')
 const { makePageSecret, badPageId, badPageSecret, cleanupCRLF } = require('./functions')
 
 const dev = ['development', undefined].includes(process.env.NODE_ENV)
-const appSecret = 'potato'
+const appSecret = dev ? 'potato' : process.env.APP_SECRET
+
+assert(appSecret, 'APP_SECRET is required')
 
 const app = express()
 const db = levelup(`${__dirname}/LevelDB`, { keyEncoding: 'hex', valueEncoding: 'json' })
@@ -45,7 +48,7 @@ app.use('/static', express.static(`${__dirname}/static`, { index: false }))
 
 app.get('/', (req, res) => {
     const pageId = (new ObjectId).toString()
-    const token = jwt.sign({ salt: pageId, n: proof.difficulty() }, appSecret, { expiresIn: '2 days' })
+    const token = jwt.sign({ salt: pageId, n: pow.difficulty() }, appSecret, { expiresIn: '2 days' })
     const options = { token }
     res.format({
         ['text/html']() {
@@ -114,7 +117,7 @@ app.get('/p/:pageId/:pageSecret', (req, res) => {
             nope.cannotChangePage(res)
             return
         }
-        const token = jwt.sign({ salt: pageId, n: proof.difficulty() }, appSecret, { expiresIn: '2 days' })
+        const token = jwt.sign({ salt: pageId, n: pow.difficulty() }, appSecret, { expiresIn: '2 days' })
         const options = { token, contents: post.contents, secret: pageSecret }
         res.format({
             ['text/html']() {
@@ -157,7 +160,7 @@ app.post('/p', (req, res) => {
         return
     }
 
-    if (!proof.validate(nonce, pageId, n, contents)) {
+    if (!pow.validate(nonce, pageId, n, contents)) {
         nope.badPageContents(res)
         return
     }
@@ -230,6 +233,10 @@ function getMountPath() {
     if (!p || p == '/') return ''
     return p
 }
+
+app.get('/-debug-ip', (req, res) => {
+    res.send(req.ip)
+})
 
 app.use((req, res, next) => {
     nope.pageNotFound(res)
