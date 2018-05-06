@@ -4,7 +4,11 @@ import { solve } from 'longpaste/scripts/pow'
 import 'isomorphic-fetch'
 
 const defaults = {
-    headers: { accept: 'application/json', 'content-type': 'application/json' },
+    credentials: 'same-origin',
+    headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+    },
 }
 
 export default class extends React.Component {
