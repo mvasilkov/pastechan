@@ -202,7 +202,7 @@ function savePost(res, pageId, contents) {
                 nope.cannotSavePage(res)
                 return
             }
-            res.redirect(`/p/${pageId}`)
+            res.redirect(`${getMountPath()}/p/${pageId}`)
         })
     })
 }
@@ -210,7 +210,7 @@ function savePost(res, pageId, contents) {
 function updatePost(res, post, pageId, contents) {
     if (contents == post.contents) {
         /* No changes */
-        res.redirect(`/p/${pageId}`)
+        res.redirect(`${getMountPath()}/p/${pageId}`)
         return
     }
     post.contents = contents
@@ -221,8 +221,14 @@ function updatePost(res, post, pageId, contents) {
             nope.cannotSavePage(res)
             return
         }
-        res.redirect(`/p/${pageId}`)
+        res.redirect(`${getMountPath()}/p/${pageId}`)
     })
+}
+
+function getMountPath() {
+    const p = Array.isArray(app.mountpath) ? app.mountpath[0] : app.mountpath
+    if (!p || p == '/') return ''
+    return p
 }
 
 app.use((req, res, next) => {
