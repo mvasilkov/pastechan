@@ -1,4 +1,6 @@
-import jwtDecode from 'jwt-decode'
+'use strict'
+
+const { stringToUTF8 } = require('./utf8')
 
 /* Size in bytes */
 const SIZE_NONCE = 4 // uint32_t
@@ -9,23 +11,25 @@ const SIZE_N = 1
 const OFFSET_NONCE = 0
 const OFFSET_SALT = OFFSET_NONCE + SIZE_NONCE + 1
 const OFFSET_N = OFFSET_SALT + SIZE_SALT + 1
+const OFFSET_CONTENTS = OFFSET_N + SIZE_N + 1
 
-export function solve(token, contents, done) {
-    const decoded = jwtDecode(token)
-
+function solve(salt, n, contents, done) {
     // nonce : salt : n : contents
-    const buf = stringToUTF8(['nonc', 'decoded.salt', 'n', cleanupCRLF(contents)].join('\t'))
-    buf.set(decoded.salt.match(/.{2}/g).map(a => parseInt(a, 16)), OFFSET_SALT)
+    const buf = stringToUTF8(['nonc', 'decoded.salt', 'n', contents].join('\t'))
+    buf.set(salt.match(/.{2}/g).map(a => parseInt(a, 16)), OFFSET_SALT)
 
     const pbuf = new DataView(buf.buffer)
-    pbuf.setUint8(OFFSET_N, decoded.n)
+    pbuf.setUint8(OFFSET_N, n)
+
+    /* Safari 9 compat */
+    const subtle = crypto.subtle || crypto.webkitSubtle
 
     let nonce = 0
     compute()
 
     function compute() {
         pbuf.setUint32(OFFSET_NONCE, nonce, false)
-        crypto.subtle.digest('SHA-256', buf).then(check)
+        subtle.digest('SHA-256', buf).then(check)
     }
 
     function check(sha256sum) {
@@ -42,7 +46,7 @@ export function solve(token, contents, done) {
             break
         }
 
-        if (k >= decoded.n) {
+        if (k >= n) {
             done(nonce)
             return
         }
@@ -51,10 +55,4 @@ export function solve(token, contents, done) {
     }
 }
 
-function stringToUTF8(a) {
-    return new TextEncoder('utf-8').encode(a)
-}
-
-function cleanupCRLF(a) {
-    return a.replace(/\r\n/g, '\n')
-}
+module.exports.solve = solve

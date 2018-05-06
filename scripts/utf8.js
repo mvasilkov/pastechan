@@ -86,3 +86,5 @@ function stringToUTF8(a) {
     stringToUTF8Array(a, buf)
     return buf
 }
+
+module.exports.stringToUTF8 = stringToUTF8
