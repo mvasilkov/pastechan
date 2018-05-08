@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser')
 const format = require('date-fns/format')
 const express = require('express')
 const favicon = require('serve-favicon')
-const frameguard = require('frameguard')
 const jwt = require('jsonwebtoken')
 const logger = require('morgan')
 const nunjucks = require('nunjucks')
@@ -16,13 +15,20 @@ const nope = require('./nope')
 const pow = require('./pow')
 const { makePageSecret, badPageId, badPageSecret, cleanupCRLF } = require('./functions')
 
+/* We use the following environment variables:
+ * APP_SECRET: same as Django's SECRET_KEY
+ * LEVELDB: path to the LevelDB location
+ * NODE_ENV: can be 'development' or 'production'
+ * PORT
+ */
+
 const dev = ['development', undefined].includes(process.env.NODE_ENV)
 const appSecret = dev ? 'potato' : process.env.APP_SECRET
 
 assert(appSecret, 'APP_SECRET is required')
 
 const app = express()
-const db = levelup(`${__dirname}/LevelDB`, { keyEncoding: 'hex', valueEncoding: 'json' })
+const db = levelup(process.env.LEVELDB || `${__dirname}/LevelDB`, { keyEncoding: 'hex', valueEncoding: 'json' })
 
 app.enable('case sensitive routing')
 app.disable('x-powered-by')
@@ -41,7 +47,10 @@ nenv.addFilter('pubdate', function pubdate(a) {
     return format(a)
 })
 
-app.use(frameguard())
+app.use(function frameOptions(req, res, next) {
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN')
+    next()
+})
 app.use(logger(dev ? 'dev' : 'short'))
 app.use(favicon(`${__dirname}/static/favicon.ico`))
 app.use('/static', express.static(`${__dirname}/static`, { index: false }))
