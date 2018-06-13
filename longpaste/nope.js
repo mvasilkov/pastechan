@@ -1,3 +1,7 @@
+/* This file is part of the Longpaste project.
+ * https://github.com/mvasilkov/longpaste
+ * Copyright (c) 2018 Mark Vasilkov (https://github.com/mvasilkov)
+ * License: MIT */
 const statuses = require('statuses')
 
 const nopeFun = n => function (res) {

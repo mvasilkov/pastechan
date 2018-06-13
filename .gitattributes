@@ -1,3 +1,2 @@
-static/editor.min.js linguist-generated
-static/master.min.css linguist-generated
-yarn.lock linguist-generated
+static/*.min.css linguist-generated
+static/*.min.js linguist-generated

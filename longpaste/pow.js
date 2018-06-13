@@ -1,3 +1,7 @@
+/* This file is part of the Longpaste project.
+ * https://github.com/mvasilkov/longpaste
+ * Copyright (c) 2018 Mark Vasilkov (https://github.com/mvasilkov)
+ * License: MIT */
 const crypto = require('crypto')
 
 const { badPageId } = require('./functions')
@@ -6,7 +10,7 @@ const lowestDifficulty = 9
 
 const difficulty = () => lowestDifficulty
 
-const bufSep = Buffer.from('\t', 'ascii')
+const bufSep = Buffer.from('\t', 'utf8')
 
 function validate(nonce, salt, n, contents) {
     nonce = +nonce

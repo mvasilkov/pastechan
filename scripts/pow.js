@@ -1,3 +1,7 @@
+/* This file is part of the Longpaste project.
+ * https://github.com/mvasilkov/longpaste
+ * Copyright (c) 2018 Mark Vasilkov (https://github.com/mvasilkov)
+ * License: MIT */
 'use strict'
 
 const { stringToUTF8 } = require('./utf8')
@@ -5,13 +9,11 @@ const { stringToUTF8 } = require('./utf8')
 /* Size in bytes */
 const SIZE_NONCE = 4 // uint32_t
 const SIZE_SALT = 12 // ObjectId
-const SIZE_N = 1
 
 /* Offset in bytes */
 const OFFSET_NONCE = 0
 const OFFSET_SALT = OFFSET_NONCE + SIZE_NONCE + 1
 const OFFSET_N = OFFSET_SALT + SIZE_SALT + 1
-const OFFSET_CONTENTS = OFFSET_N + SIZE_N + 1
 
 function solve(salt, n, contents, done) {
     // nonce : salt : n : contents

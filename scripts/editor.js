@@ -1,3 +1,7 @@
+/* This file is part of the Longpaste project.
+ * https://github.com/mvasilkov/longpaste
+ * Copyright (c) 2018 Mark Vasilkov (https://github.com/mvasilkov)
+ * License: MIT */
 'use strict'
 
 const { solve } = require('./pow')
@@ -38,5 +42,4 @@ function disableUI() {
 function enableUI() {
     modalOverlay.style.display = 'none'
     contents.disabled = save.disabled = false
-    // contents.focus()
 }

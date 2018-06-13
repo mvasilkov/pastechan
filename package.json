@@ -20,30 +20,30 @@
     "watch": "concurrently \"yarn watch_css\" \"yarn dev\""
   },
   "dependencies": {
-    "bson": "^2.0.5",
+    "bson": "^3.0.0",
     "cmark-emscripten": "^0.0.0",
     "cookie-parser": "^1.4.3",
     "date-fns": "^1.29.0",
-    "encoding-down": "^4.0.0",
+    "encoding-down": "^5.0.3",
     "express": "^4.16.3",
-    "jsonwebtoken": "^8.2.1",
-    "leveldown": "^3.0.0",
-    "levelup": "^2.0.2",
+    "jsonwebtoken": "^8.3.0",
+    "leveldown": "^4.0.1",
+    "levelup": "^3.0.1",
     "morgan": "^1.9.0",
     "ms": "^2.1.1",
-    "nunjucks": "^3.1.2",
+    "nunjucks": "^3.1.3",
     "serve-favicon": "^2.5.0",
     "statuses": "^1.5.0",
     "stoppable": "^1.0.6"
   },
   "devDependencies": {
-    "clean-css-cli": "^4.1.10",
+    "clean-css-cli": "^4.1.11",
     "concurrently": "^3.5.1",
-    "google-closure-compiler": "^20180402.0.0",
+    "google-closure-compiler": "^20180610.0.0",
     "jwt-decode": "^2.2.0",
-    "node-sass": "^4.7.2",
-    "nodemon": "^1.17.3",
+    "node-sass": "^4.9.0",
+    "nodemon": "^1.17.5",
     "replace-in-file": "^3.4.0",
-    "systematize": "^3.0.0"
+    "systematize": "^3.1.0"
   }
 }

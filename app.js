@@ -1,3 +1,7 @@
+/* This file is part of the Longpaste project.
+ * https://github.com/mvasilkov/longpaste
+ * Copyright (c) 2018 Mark Vasilkov (https://github.com/mvasilkov)
+ * License: MIT */
 const assert = require('assert')
 const ObjectId = require('bson/lib/bson/objectid')
 const cmark = require('cmark-emscripten')
@@ -9,18 +13,17 @@ const jwt = require('jsonwebtoken')
 const logger = require('morgan')
 const nunjucks = require('nunjucks')
 
-const gracefulShutdown = require('./stop')
-const levelup = require('./levelup')
-const nope = require('./nope')
-const pow = require('./pow')
-const { makePageSecret, badPageId, badPageSecret, cleanupCRLF } = require('./functions')
+const gracefulShutdown = require('./longpaste/stop')
+const levelup = require('./longpaste/levelup')
+const nope = require('./longpaste/nope')
+const pow = require('./longpaste/pow')
+const { makePageSecret, badPageId, badPageSecret, cleanupCRLF } = require('./longpaste/functions')
 
 /* We use the following environment variables:
  * APP_SECRET: same as Django's SECRET_KEY
  * LEVELDB: path to the LevelDB location
  * NODE_ENV: can be 'development' or 'production'
- * PORT
- */
+ * PORT */
 
 const dev = ['development', undefined].includes(process.env.NODE_ENV)
 const appSecret = dev ? 'potato' : process.env.APP_SECRET

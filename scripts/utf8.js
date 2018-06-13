@@ -1,6 +1,10 @@
-/* The following is based on Emscripten's UTF-8 functions */
+/* This file is part of the Longpaste project.
+ * https://github.com/mvasilkov/longpaste
+ * Copyright (c) 2018 Mark Vasilkov (https://github.com/mvasilkov)
+ * License: MIT */
 'use strict'
 
+// The following is based on Emscripten's UTF-8 functions.
 // Returns the number of bytes the given JavaScript string takes if encoded as a UTF8 byte array.
 function lengthBytesUTF8(a) {
     let len = 0
@@ -79,9 +83,7 @@ function stringToUTF8Array(a, outU8Array) {
 }
 
 function stringToUTF8(a) {
-    if (typeof window.TextEncoder == 'function') {
-        return new TextEncoder('utf-8').encode(a)
-    }
+    if (typeof window.TextEncoder == 'function') return (new TextEncoder).encode(a)
     const buf = new Uint8Array(lengthBytesUTF8(a))
     stringToUTF8Array(a, buf)
     return buf
