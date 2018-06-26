@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'utils';
 
 .editor .wrapper {
     align-items: center;
@@ -55,6 +56,10 @@
     top: 0;
     white-space: nowrap;
     width: 100%;
+}
+
+.warning .container {
+    @include font-subpixel-off;
 }
 
 .warning-close {
