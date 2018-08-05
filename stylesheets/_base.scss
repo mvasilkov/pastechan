@@ -1,11 +1,6 @@
+@import '../node_modules/systematize/addons/hyperlink';
+@import '../node_modules/systematize/addons/utils';
 @import 'colors';
-@import 'utils';
-
-:focus {
-    outline: 3px solid $color-focus-solid;
-    outline: 3px solid $color-focus;
-    outline-offset: 1px;
-}
 
 body {
     background-color: $color-background;
@@ -13,11 +8,23 @@ body {
 }
 
 p, pre, ol, ul {
-    @include font-subpixel-off;
+    @include font-smoothing-antialiased;
+}
+
+a {
+    @include sa-hyperlink($color-link, $color-background);
 }
 
 header p, footer p {
     font-style: italic;
+}
+
+h5 {
+    opacity: 0.8;
+}
+
+h6 {
+    opacity: 0.6;
 }
 
 textarea {

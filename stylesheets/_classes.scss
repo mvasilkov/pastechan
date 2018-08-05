@@ -1,5 +1,6 @@
+@import '../node_modules/systematize/addons/hyperlink';
+@import '../node_modules/systematize/addons/utils';
 @import 'colors';
-@import 'utils';
 
 .editor .wrapper {
     align-items: center;
@@ -59,7 +60,11 @@
 }
 
 .warning .container {
-    @include font-subpixel-off;
+    @include font-smoothing-antialiased;
+}
+
+.warning a {
+    @include sa-hyperlink($color-link, mix($color-warning-1, $color-warning-2, 25));
 }
 
 .warning-close {
