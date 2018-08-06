@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="/static/master.min.css">
+        {% block style %}{% endblock %}
     </head>
     <body class="{% block class %}{% endblock %}">
         <div class="container">

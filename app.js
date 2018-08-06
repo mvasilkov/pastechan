@@ -13,6 +13,7 @@ const jwt = require('jsonwebtoken')
 const logger = require('morgan')
 const nunjucks = require('nunjucks')
 
+const dataview = require('./longpaste/dataview')
 const gracefulShutdown = require('./longpaste/stop')
 const levelup = require('./longpaste/levelup')
 const nope = require('./longpaste/nope')
@@ -47,7 +48,7 @@ const nenv = nunjucks.configure(`${__dirname}/templates`, {
 })
 
 nenv.addFilter('pubdate', function pubdate(a) {
-    return format(a)
+    return format(a, 'YYYY-MM-DD')
 })
 
 app.use(function frameOptions(req, res, next) {
@@ -245,6 +246,8 @@ function getMountPath() {
     if (!p || p == '/') return ''
     return p
 }
+
+dataview.init(app, db)
 
 app.get('/-debug-ip', (req, res) => {
     res.send(req.ip)

@@ -1,0 +1,22 @@
+.container {
+    max-width: 900px;
+}
+
+article {
+    font-size: 14px;
+}
+
+code, pre {
+    font-size: 13px;
+}
+
+.dataview-table td {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    vertical-align: top;
+}
+
+.dataview-table pre {
+    margin: 0 0 0 10px;
+    white-space: pre-wrap;
+}

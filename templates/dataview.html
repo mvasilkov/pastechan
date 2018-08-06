@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/dataview.css">
+{% endblock %}
+
+{% block class %}dataview{% endblock %}
+
+{% block content %}
+    <table class="dataview-table">
+        {% for p in pages %}
+            <tr>
+                <td>
+                    <a href="/p/{{ p.key }}">{{ p.key }}</a><br>
+                    Created: {{ p.value.created | pubdate }}<br>
+                    Updated: {{ p.value.updated | pubdate }}<br>
+                    <a href="/p/{{ p.key }}/{{ p.value.secret }}">Edit</a>
+                </td>
+                <td>
+                    <pre><code>{{ p.value.contents | escape }}</code></pre>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p>
+        <a href="/-dataview?before={{ before }}">Before</a>
+    </p>
+{% endblock %}
