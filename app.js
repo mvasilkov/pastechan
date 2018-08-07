@@ -24,7 +24,8 @@ const { makePageSecret, badPageId, badPageSecret, cleanupCRLF } = require('./lon
  * APP_SECRET: same as Django's SECRET_KEY
  * LEVELDB: path to the LevelDB location
  * NODE_ENV: can be 'development' or 'production'
- * PORT */
+ * PORT: defaults to 3000
+ * DATAVIEW: enable the dataview app in production */
 
 const dev = ['development', undefined].includes(process.env.NODE_ENV)
 const appSecret = dev ? 'potato' : process.env.APP_SECRET
@@ -247,7 +248,9 @@ function getMountPath() {
     return p
 }
 
-dataview.init(app, db)
+if (dev || process.env.DATAVIEW) {
+    dataview.init(app, db)
+}
 
 app.get('/-debug-ip', (req, res) => {
     res.send(req.ip)
