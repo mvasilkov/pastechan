@@ -13,12 +13,12 @@ const jwt = require('jsonwebtoken')
 const logger = require('morgan')
 const nunjucks = require('nunjucks')
 
-const dataview = require('./longpaste/dataview')
-const gracefulShutdown = require('./longpaste/stop')
-const levelup = require('./longpaste/levelup')
-const nope = require('./longpaste/nope')
-const pow = require('./longpaste/pow')
-const { makePageSecret, badPageId, badPageSecret, cleanupCRLF } = require('./longpaste/functions')
+const dataview = require('./app/dataview')
+const gracefulShutdown = require('./app/stop')
+const levelup = require('./app/levelup')
+const nope = require('./app/nope')
+const pow = require('./app/pow')
+const { makePageSecret, badPageId, badPageSecret, cleanupCRLF } = require('./app/functions')
 
 /* We use the following environment variables:
  * APP_SECRET: same as Django's SECRET_KEY
@@ -247,6 +247,10 @@ function getMountPath() {
     if (!p || p == '/') return ''
     return p
 }
+
+app.get('/options', (req, res) => {
+    res.render('options.html')
+})
 
 if (dev || process.env.DATAVIEW) {
     dataview.init(app, db)

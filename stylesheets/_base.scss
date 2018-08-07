@@ -7,7 +7,7 @@ body {
     color: $color-copy;
 }
 
-p, pre, ol, ul {
+blockquote, p, pre, ol, ul {
     @include font-smoothing-antialiased;
 }
 
