@@ -7,5 +7,19 @@
 {% block content %}
     <header>
         <h1>Options</h1>
+        <p>Saved to this browser's local storage</p>
     </header>
+    <h3>Dropbox</h3>
+    <p class="state state-initializing">Initializing</p>
+    <p class="state state-not-authenticated">
+        <a href="?" id="client-storage-auth-link">Authorize</a>
+        Dropbox account
+    </p>
+    <p class="state state-authenticated">Enabled</p>
+{% endblock %}
+
+{% block script %}
+    <script src="/static/dropbox.min.js"></script>
+    <script src="/static/clientStorage.min.js"></script>
+    <script src="/static/options.js"></script>
 {% endblock %}

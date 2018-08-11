@@ -21,9 +21,11 @@
   },
   "dependencies": {
     "bson": "^3.0.0",
+    "client-storage-dropbox": "^0.0.0",
     "cmark-emscripten": "^0.0.0",
     "cookie-parser": "^1.4.3",
     "date-fns": "^1.29.0",
+    "dropbox": "^4.0.9",
     "encoding-down": "^5.0.3",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
