@@ -1,5 +1,5 @@
-/* This file is part of the Longpaste project.
- * https://github.com/mvasilkov/longpaste
+/* This file is part of the pastechan project.
+ * https://github.com/mvasilkov/pastechan
  * Copyright (c) 2018 Mark Vasilkov (https://github.com/mvasilkov)
  * License: MIT */
 const crypto = require('crypto')

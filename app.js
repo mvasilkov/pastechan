@@ -1,5 +1,5 @@
-/* This file is part of the Longpaste project.
- * https://github.com/mvasilkov/longpaste
+/* This file is part of the pastechan project.
+ * https://github.com/mvasilkov/pastechan
  * Copyright (c) 2018 Mark Vasilkov (https://github.com/mvasilkov)
  * License: MIT */
 const assert = require('assert')
@@ -269,7 +269,7 @@ function run(app) {
         gracefulShutdown(server, db)
 
         const a = server.address()
-        const appName = app.get('app name') || 'Longpaste'
+        const appName = app.get('app name') || 'pastechan'
         console.log(`${appName} app listening on ${a.address} port ${a.port}`)
     })
 }
