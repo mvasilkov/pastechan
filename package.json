@@ -22,7 +22,7 @@
   "dependencies": {
     "bson": "^3.0.0",
     "client-storage-dropbox": "^0.0.0",
-    "cmark-emscripten": "^0.0.0",
+    "cmark-emscripten": "^0.0.1",
     "cookie-parser": "^1.4.3",
     "date-fns": "^1.29.0",
     "dropbox": "^4.0.9",

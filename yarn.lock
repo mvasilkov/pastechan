@@ -482,9 +482,9 @@ cloneable-readable@^1.0.0:
     process-nextick-args "^2.0.0"
     readable-stream "^2.3.5"
 
-cmark-emscripten@^0.0.0:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/cmark-emscripten/-/cmark-emscripten-0.0.0.tgz#c6a62d064adc17a3e2087aaa209708475a3cfa6b"
+cmark-emscripten@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/cmark-emscripten/-/cmark-emscripten-0.0.1.tgz#805485c61515218ea1cd83704c7786478f0d5c11"
   dependencies:
     get-stdin "^6.0.0"
     require-inject-scope "^1.0.0"
