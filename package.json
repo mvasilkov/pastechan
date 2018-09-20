@@ -40,13 +40,13 @@
   },
   "devDependencies": {
     "clean-css-cli": "^4.1.11",
-    "concurrently": "^3.5.1",
+    "concurrently": "^4.0.1",
     "google-closure-compiler": "20180716.0.1",
     "jwt-decode": "^2.2.0",
     "node-sass": "^4.9.0",
     "nodemon": "^1.17.5",
     "replace-in-file": "^3.4.0",
-    "systematize": "3.1.0-addons.4",
+    "systematize": "^3.2.0",
     "truncate-words": "^1.0.0"
   }
 }
