@@ -3104,9 +3104,10 @@ supports-color@^5.2.0, supports-color@^5.3.0:
   dependencies:
     has-flag "^3.0.0"
 
-systematize@3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/systematize/-/systematize-3.2.0.tgz#1de9fdb8ee0bc8f124d917642383bf98bb7e05c4"
+systematize@^3.2.0:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/systematize/-/systematize-3.2.3.tgz#30e2672dae31e56b59e83b7e6ff2ec9ce54fc590"
+  integrity sha512-jWQirjSIJD7hOZwn7WoCGMhQX9UYhIMjVsDlbSyhH0fYfP886Kjd3/np7mHTOF6T1wS69zXPmiflw8dvv7XMpw==
 
 tar-fs@^1.13.0:
   version "1.16.2"
